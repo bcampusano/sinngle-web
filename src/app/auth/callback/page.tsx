@@ -9,8 +9,7 @@ export default function AuthCallback() {
 
   useEffect(() => {
     const run = async () => {
-      // 👇 pasar la URL completa con el code/state del callback
-      const { data, error } = await supabaseBrowser.auth.exchangeCodeForSession(
+      const { error } = await supabaseBrowser.auth.exchangeCodeForSession(
         window.location.href
       )
 
@@ -27,3 +26,4 @@ export default function AuthCallback() {
 
   return <p style={{ padding: 24 }}>Procesando acceso…</p>
 }
+
