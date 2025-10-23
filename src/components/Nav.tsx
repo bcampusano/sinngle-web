@@ -1,6 +1,6 @@
 'use client';
 import Link from 'next/link';
-import { supabase } from '@/lib/supabase';
+import { supabase } from '@/lib/supabase-browser';
 
 export default function Nav(){
   const logout = async ()=>{

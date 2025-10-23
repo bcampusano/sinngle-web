@@ -13,10 +13,7 @@ const bgImages = [
   'https://images.unsplash.com/photo-1529156069898-49953e39b3ac?q=80&w=1600&auto=format&fit=crop',
 ]
 
-export default function LoginPage() {
-
-
-
+export default function LoginClient() {
   const [index, setIndex] = useState(0)
 
   // Autoplay carrusel cada 5s
@@ -26,7 +23,6 @@ export default function LoginPage() {
     }, 5000)
     return () => window.clearInterval(id)
   }, [])
-
 
   const loginWith = async (provider: 'google' | 'facebook' | 'apple') => {
     const origin = typeof window !== 'undefined' ? window.location.origin : ''
@@ -52,32 +48,34 @@ export default function LoginPage() {
             transition={{ duration: 1.1, ease: 'easeOut' }}
           />
         ))}
-        <div className="absolute inset-0 bg-gradient-to-tr from-black/70 via-black/30 to-transparent" />
 
-        <div className="absolute bottom-0 left-0 right-0 p-10">
+        {/* gradiente */}
+        <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-transparent to-black/30" />
+
+        {/* ⬆️ Texto del banner ARRIBA */}
+        <div className="absolute top-0 left-0 right-0 p-10">
           <motion.div
-            key={index}
-            initial={{ y: 20, opacity: 0 }}
+            key={`banner-${index}`}
+            initial={{ y: -12, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.6 }}
-            className="backdrop-blur-sm bg-white/5 p-6 rounded-2xl border border-white/10"
+            className="backdrop-blur-sm bg-white/10 p-6 rounded-2xl border border-white/15 shadow-2xl"
           >
             <h2 className="text-3xl font-semibold">Conoce gente real en tu ciudad, Gratis</h2>
-            <p className="text-white/80 mt-2">
-              Únete en segundos.
-            </p>
+            <p className="text-white/85 mt-2">Únete en segundos.</p>
           </motion.div>
+        </div>
 
-          <div className="mt-6 flex items-center gap-2">
-            {bgImages.map((_, i) => (
-              <button
-                key={i}
-                onClick={() => setIndex(i)}
-                className={`h-1.5 w-10 rounded-full transition-all ${i === index ? 'bg-white' : 'bg-white/40'}`}
-                aria-label={`Ir a imagen ${i + 1}`}
-              />
-            ))}
-          </div>
+        {/* Paginador */}
+        <div className="absolute bottom-6 left-10 flex items-center gap-2">
+          {bgImages.map((_, i) => (
+            <button
+              key={i}
+              onClick={() => setIndex(i)}
+              className={`h-1.5 w-10 rounded-full transition-all ${i === index ? 'bg-white' : 'bg-white/40'}`}
+              aria-label={`Ir a imagen ${i + 1}`}
+            />
+          ))}
         </div>
       </div>
 
@@ -112,8 +110,8 @@ export default function LoginPage() {
             >
               Continuar con Google
             </button>
-          
-                      <button
+
+            <button
               type="button"
               onClick={() => loginWith('facebook')}
               className="w-full rounded-xl py-3 font-medium border border-white/15 bg-black/30 hover:border-white/30 transition"

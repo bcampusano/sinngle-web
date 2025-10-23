@@ -1,7 +1,11 @@
-// src/app/page.tsx (Server Component)
-import { redirect } from 'next/navigation';
+import { redirect } from 'next/navigation'
+import { createSupabaseServer } from '@/lib/supabase-server'
 
-export default function Home() {
-  // Por ahora, manda todo a /login
-  redirect('/login');
+export default async function Home() {
+  const supabase = createSupabaseServer()
+  const { data: { session } } = await supabase.auth.getSession()
+    console.log('SSR getSession =>', session)
+
+  if (session) redirect('/explore')
+  redirect('/login')
 }

@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { supabase } from '@/lib/supabase';
+import { supabase } from '@/lib/supabase-browser';
 import Nav from '@/components/Nav';
 
 type Group = { id: string; title: string | null; created_at: string };
