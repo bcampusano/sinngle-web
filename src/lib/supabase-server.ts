@@ -1,6 +1,16 @@
 import { cookies } from 'next/headers'
 import { createServerClient } from '@supabase/ssr'
 
+type CookieOptions = {
+  path?: string
+  domain?: string
+  maxAge?: number
+  expires?: Date
+  httpOnly?: boolean
+  secure?: boolean
+  sameSite?: 'lax' | 'strict' | 'none'
+}
+
 export function createSupabaseServer() {
   const cookieStore = cookies()
 
@@ -12,18 +22,18 @@ export function createSupabaseServer() {
         get(name: string) {
           return cookieStore.get(name)?.value
         },
-        set(name: string, value: string, options: any) {
+        set(name: string, value: string, options: CookieOptions) {
           try {
             cookieStore.set({ name, value, ...options })
           } catch {
-            // ignore en runtime edge
+            // ignore en edge runtimes
           }
         },
-        remove(name: string, options: any) {
+        remove(name: string, options: CookieOptions) {
           try {
             cookieStore.set({ name, value: '', ...options, maxAge: 0 })
           } catch {
-            // ignore en runtime edge
+            // ignore en edge runtimes
           }
         },
       },
